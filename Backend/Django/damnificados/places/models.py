@@ -15,9 +15,9 @@ class Places(models.Model):
     street_name = models.CharField(max_length=45)
     city =  models.CharField(max_length=45)
 
-# Model PersonasHasPlaces 
-class PersonasHasPlaces(models.Model):
-    date = models.DateField()
-    status = models.CharField(choices=STATUS, max_length=20)
-    places_id = models.ForeignKey(Places)
-    personas_id = models.ForeignKey(Personas)
+# Model PersonaHasPlaces 
+# class PersonaHasPlaces(models.Model):
+#     date = models.DateField()
+#     status = models.CharField(choices=STATUS, max_length=20)
+#     places_id = models.ForeignKey(Places)
+#     personas_id = models.ForeignKey(Personas)

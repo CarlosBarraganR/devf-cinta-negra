@@ -9,6 +9,8 @@ from .serializers import PersonasGetNameSerializer, PersonasCreateSerializer, Pe
 
 from django.shortcuts import render
 
+import requests
+
 # Create your views here.
 
 class PersonasApi(APIView):
@@ -24,4 +26,31 @@ class PersonasApi(APIView):
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)        
+
+class PersonaApi(APIView):
+
+    def _getPersona(self, pk):
+        try:
+            return Personas.objects.get(pk=pk)
+        except Personas.DoesNotExist:
+            raise Http404
+    
+    def get(self, request, pk):
+        persona = self._getPersona(pk)
+        serializer = PersonasSerializer(persona)
+        return Response(serializer.data, status = status.HTTP_200_OK)
+
+    def put(self, request, pk):
+        persona = self._getPersona(pk)
+        serializer = PersonasSerializer(persona, request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status = status.HTTP_202_ACCEPTED)
+        else:
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, pk):
+        persona = self._getPersona(pk)
+        persona.delete()
+        return Response(status = status.HTTP_204_NO_CONTENT)

@@ -27,7 +27,6 @@ DEBUG = True
 
 ALLOWED_HOSTS = []
 
-
 # Application definition
 
 INSTALLED_APPS = [
@@ -39,7 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'rest_framework', #IMPORTANT: import rest_framework and the app that contains the models
     'personas',
-    'places'
+    'places',
+    'user'
 ]
 
 MIDDLEWARE = [
@@ -106,6 +106,23 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# REST Framework 
+REST_FRAMEWORK = {
+    'DEFAULT_PERMISSION_CLASSES': (
+        'rest_framework.permissions.IsAuthenticated',
+    ),
+    'DEFAULT_AUTHENTICATION_CLASSES': (
+        'rest_framework_jwt.authentication.JSONWebTokenAuthentication',
+        'rest_framework.authentication.SessionAuthentication',
+        'rest_framework.authentication.BasicAuthentication',
+    ),
+}
+
+AUTH_USER_MODEL = "user.User"
+
+JWT_AUTH = {
+    'JWT_AUTH_HEADER_PREFIX': 'Auth',
+}
 
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/

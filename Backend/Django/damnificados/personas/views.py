@@ -5,11 +5,12 @@ from rest_framework import status
 from rest_framework.response import Response
 
 from .models import Personas
-from .serializers import PersonasGetNameSerializer, PersonasCreateSerializer, PersonasSerializer
+from .serializers import PersonasSerializer
 
 from django.shortcuts import render
 
 import requests
+import json
 
 # Create your views here.
 
@@ -24,9 +25,31 @@ class PersonasApi(APIView):
         serializer = PersonasSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
+            self._sendPushNotification("Persona creada", "dWpXtB2w9To:APA91bGwWE-tR9S-eb66hvvYzU_mjsne2Fj2c1cbNaGquLQuVr15pMtBv6aQnJozVP-aFg4jSIKeLeIPcgdjHCeyaNfcC10BeNTlczfpi1-Tw12apVJIRMilBDErI-iv3ortPKP9-qGl")
             return Response(serializer.data, status=status.HTTP_201_CREATED)
         else:
-            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)        
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)  
+    
+    def _sendPushNotification(self, message, deviceToken):
+        baseUrl = "https://fcm.googleapis.com/fcm/send"
+        headers = {"Authorization": "key=AIzaSyB0k006LxEMxjpcL1bgz6CkAtEhX2UjQdY", "Content-Type": "application/json"}
+        data = { 
+            "notification": {
+                "title": message,
+                "body": "5 to 1",
+                "icon": "firebase-logo.png",
+                "click_action": "http://localhost:8081"
+                },
+                "to" : deviceToken
+            }
+        data = json.dumps(data)       
+        pushNotification = requests.post(baseUrl, headers = headers, data=data)
+
+        pushNotificationJson = pushNotification.json()
+        if pushNotification.status_code == 200 and "error" not in pushNotificationJson["results"][0]:
+            return True
+        else:
+            return False
 
 class PersonaApi(APIView):
 

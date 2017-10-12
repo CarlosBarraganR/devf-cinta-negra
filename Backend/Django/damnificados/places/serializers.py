@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from .models import Places, PersonaHasPlaces
+from .models import Places
 
 # PLACES MODEL SERIALIZERS
 

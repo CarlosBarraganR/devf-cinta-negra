@@ -1,14 +1,15 @@
 version: "2"
 services:
+#has to be the same as the host in our settings.py file #has to be the same as our docker mysql image
+  django-mysql: 
+    image: mysql 
+    environment:
+      - MYSQL_ROOT_PASSWORD=Derzitteraal666
+      - MYSQL_DATABASE=damnificadosDb
+
   django-clases: #our docker-compose container name
     build: .
     ports:
       - "8000:8000"
     depends_on:
       - django-mysql
-
-#has to be the same as the host in our settings.py file #has to be the same as our docker mysql image
-  django-mysql: 
-    image: mysql 
-    environment:
-      - MYSQL_ROOT_PASSWORD=Derzitteraal666

@@ -16,8 +16,4 @@ COPY damnificados /damnificados
 #Install the environment (bin/libs) required for the app to run
 RUN pip install -r requirements.txt
 
-CMD manage.py makemigrations
-CMD manage.py migrate
-
-#Create a conection between the container and a listener @Localhost in port 8000 (In this case a mySQL database)
-CMD gunicorn --bind 0.0.0.0:8000 damnificados.wsgi:application
+CMD sh config.sh

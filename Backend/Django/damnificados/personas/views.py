@@ -8,7 +8,6 @@ from .models import Personas
 from .serializers import PersonasSerializer
 
 from django.shortcuts import render
-
 import requests
 import json
 
@@ -57,7 +56,7 @@ class PersonaApi(APIView):
         try:
             return Personas.objects.get(pk=pk)
         except Personas.DoesNotExist:
-            raise Http404
+            raise HTTP_400_BAD_REQUEST
     
     def get(self, request, pk):
         persona = self._getPersona(pk)

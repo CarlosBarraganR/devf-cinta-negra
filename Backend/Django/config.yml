@@ -1,0 +1,13 @@
+machine:
+  services:
+  - docker
+
+dependencies:
+  override:
+    - docker pull mysql
+    - docker build -t docker-api-devf .
+    - docker run --name django-mysql -e MYSQL_ROOT_PASSWORD=Derzitteraal666 -e MYSQL_DATABASE=damnificadosDb -d mysql
+
+test:
+  override:
+    - docker run -it --link django-mysql:mysql docker-api-devf sh test.sh

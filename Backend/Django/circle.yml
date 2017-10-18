@@ -1,6 +1,7 @@
 machine:
   services:
     - docker
+    - docker
 
 dependencies:
   override:
@@ -10,4 +11,4 @@ dependencies:
 
 test:
   override:
-    - docker run -it --link django-mysql:mysql docker-api-devf sh test.sh
+    - docker run -it --link django-mysql:mysql docker-api-devf sh tests.sh

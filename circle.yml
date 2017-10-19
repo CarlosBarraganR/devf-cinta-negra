@@ -17,4 +17,4 @@ deployment:
   qa:
     branch: master
     commands:
-      - sh deploy.sh
+      - sh Backend/Django/deploy.sh

@@ -11,10 +11,10 @@ dependencies:
 
 test:
   override:
-    - docker run -it --link docker-mysql:mysql -e DJANGO_ENV=development api-damnificados sh Backend/Django/tests.sh
+    - docker run -it --link docker-mysql:mysql -e DJANGO_ENV=development api-damnificados sh tests.sh
  
 deployment:
   qa:
     branch: master
     commands:
-      - sh Backend/Django/deploy.sh
+      - sh deploy.sh

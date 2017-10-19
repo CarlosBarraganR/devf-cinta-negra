@@ -7,7 +7,7 @@ dependencies:
     - bash Backend/Django/setup-heroku.sh
     - docker pull mysql
     - docker build -t api-damnificados -f Backend/Django/Dockerfile Backend/Django
-    - docker run --name django-mysql -e MYSQL_ROOT_PASSWORD=Derzitteraal666 -e MYSQL_DATABASE=danmificadosDb -d mysql 
+    - docker run --name django-mysql -e MYSQL_ROOT_PASSWORD=Derzitteraal666 -e MYSQL_DATABASE=damnificadosDb -d mysql 
 
 test:
   override:

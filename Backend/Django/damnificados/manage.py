@@ -3,7 +3,10 @@ import os
 import sys
 
 if __name__ == "__main__":
-    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "damnificados.settings.development")
+    settingsEnv = "damnificados.settings." + os.environ.get('DJANGO_ENV')
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", settingsEnv)
+    #this points to mysql dev db only so we need to add a variable to change our environment
+    #os.environ.setdefault("DJANGO_SETTINGS_MODULE", "damnificados.settings.development")
     try:
         from django.core.management import execute_from_command_line
     except ImportError:

@@ -18,11 +18,11 @@ class PlacesTest(TestCase):
         self.client = Client()
 
         self.first_place = Places.objects.create(
-            place_name = "Plazita Linda"
-            street_name = "Lindavista #4434"
+            place_name = "Plazita Linda",
+            street_name = "Lindavista #4434",
             city = "Zapopan"
         )
 
-        def test_get_places(self):
-            places = Places.objects.all()
-            response = 
+        # def test_get_places(self):
+        #     places = Places.objects.all()
+        #     response = 

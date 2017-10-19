@@ -1,0 +1,20 @@
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - bash Backend/Django/setup-heroku.sh
+    - docker pull mysql
+    - docker build -t django_django-clases .
+    - docker run --name docker-damnificados -e MYSQL_ROOT_PASSWORD=Derzitteraal666 -e MYSQL_DATABASE=danmificadosDb -d mysql 
+
+test:
+  override:
+    - docker run -it --link docker-mysql:mysql -e DJANGO_ENV=development django_django-clases sh Backend/Django/tests.sh
+ 
+deployment:
+  qa:
+    branch: master
+    commands:
+      - sh Backend/Django/deploy.sh

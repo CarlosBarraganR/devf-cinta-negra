@@ -11,8 +11,8 @@ dependencies:
 
 test:
   override:
-    - docker run -it --link docker-damnificados:mysql -e DJANGO_ENV=development django_django-clases
-
+    - docker run -it --link docker-mysql:mysql -e DJANGO_ENV=development django_django-clases sh tests.sh
+ 
 deployment:
   qa:
     branch: master
